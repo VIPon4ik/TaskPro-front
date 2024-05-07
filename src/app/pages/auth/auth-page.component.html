@@ -1,16 +1,67 @@
 <div class="flex justify-center items-center h-screen md:max-w-[424px] mx-auto">
-  <form class="p-6 md:p-10 bg-black w-full rounded-lg">
+  <form class="p-6 md:p-10 bg-primary-black w-full rounded-lg" [formGroup]="authForm">
     <div class="flex gap-4 mb-10 text-white text-lg font-medium">
-      <a>Registration</a>
-      <a>Log In</a>
+      <a routerLink="/auth/registration" [class.opacity-40]="!isRegistrationPage">Registration</a>
+      <a routerLink="/auth/login" [class.opacity-40]="isRegistrationPage">Log In</a>
     </div>
     <ul class="flex flex-col gap-4 mb-6">
-      <li><input type="text" class="form-input w-full" placeholder="Enter your name"></li>
-      <li><input type="text" class="form-input w-full" placeholder="Enter your email"></li>
-      <li><input type="text" class="form-input w-full" placeholder="Create a password"></li>
+      @if (isRegistrationPage) {
+        <li>
+          <input
+            type="text"
+            name="name"
+            formControlName="name"
+            class="form-input w-full"
+            placeholder="Enter your name"
+          />
+          @if (authForm.controls['name'].touched) {
+            @for (error of authForm.controls['name'].errors | keyvalue; track error.key) {
+              <span class="text-danger text-xs">{{ errorMessages[error.key] }}</span>
+            }
+          }
+        </li>
+      }
+      <li>
+        <input
+          type="text"
+          name="email"
+          formControlName="email"
+          class="form-input w-full"
+          placeholder="Enter your email"
+        />
+        @if (authForm.controls['email'].touched) {
+          @for (error of authForm.controls['email'].errors | keyvalue; track error.key) {
+            <span class="text-danger text-xs">{{ errorMessages[error.key] }}</span>
+          }
+        }
+      </li>
+      <li>
+        <div class="relative password-container">
+          <input
+            name="password"
+            class="form-input w-full"
+            placeholder="Create a password"
+            formControlName="password"
+            [type]="hidePassword ? 'password' : 'text'"
+          />
+          <button type="button" class="absolute top-4 right-4 opacity-40" (click)="hidePassword = !hidePassword">
+            <img src="./assets/eye.svg">
+          </button>
+        </div>
+        @if (authForm.controls['password'].touched) {
+          @for (error of authForm.controls['password'].errors | keyvalue; track error.key) {
+            <span class="text-danger text-xs">{{ errorMessages[error.key] }}</span>
+          }
+        }
+      </li>
     </ul>
-    <button class="btn w-full bg-green text-black py-4">
-      Register Now
+    <button 
+      class="btn w-full bg-green text-black py-4" 
+      type="submit"
+      [disabled]="authForm.invalid"
+      (click)="onSubmit()"
+    >
+      {{ isRegistrationPage ? 'Register Now' : 'Log In Now'}}
     </button>
   </form>
 </div>

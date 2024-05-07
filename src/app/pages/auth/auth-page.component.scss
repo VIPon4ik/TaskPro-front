@@ -1,0 +1,7 @@
+.password-container {
+  &:focus-within {
+    button {
+      opacity: 1;
+    }
+  }
+}
