@@ -17,4 +17,8 @@ export class AuthService {
   register$(body: RegisterPayload): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(environment.baseURL + '/users/register', body);
   }
+
+  setToken(token: string): void {
+    localStorage.setItem('token', token);
+  }
 }

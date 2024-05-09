@@ -66,7 +66,8 @@ export class AuthPageComponent implements OnInit {
         .register$(this.authForm.value)
         .pipe(
           tap((data: AuthResponse) => {
-            console.log(data);
+            this.authService.setToken(data.token);
+            this.router.navigate(['/home']);
           }),
           untilDestroyed(this),
         )
@@ -75,11 +76,11 @@ export class AuthPageComponent implements OnInit {
         .login$(this.authForm.value)
         .pipe(
           tap((data: AuthResponse) => {
-            console.log(data);
+            this.authService.setToken(data.token);
+            this.router.navigate(['/home']);
           }),
           untilDestroyed(this),
         )
         .subscribe();
-    // this.router.navigate(['/home']);
   }
 }
