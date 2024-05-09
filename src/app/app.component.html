@@ -1,7 +1,7 @@
-<header>
+<header *ngIf="currentUser.value">
   hello world
 </header>
-<main class="bg-welcome-page">
+<main [class.bg-welcome-page]="!currentUser.value">
   <div class="px-5 min-h-screen mobile:max-w-[375px] md:max-w-3xl mx-auto">
     <router-outlet></router-outlet>
   </div>

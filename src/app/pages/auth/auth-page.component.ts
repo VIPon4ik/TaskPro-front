@@ -8,9 +8,9 @@ import {
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { AuthResponse } from '@shared/auth/models';
-import { AuthService } from '@shared/auth/services/auth.service';
+import { UsersService } from '@shared/auth/services/users.service';
 import { trimValidator } from '@shared/auth/validators/trim-validator';
-import { tap } from 'rxjs';
+import { finalize, switchMap, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ERROR_MESSAGES } from '@shared/auth/constants/error-messages';
 import { passwordValidator } from './validators';
@@ -32,7 +32,7 @@ export class AuthPageComponent implements OnInit {
 
   private activatedRoute = inject(ActivatedRoute);
   private router = inject(Router);
-  private authService = inject(AuthService);
+  private usersService = inject(UsersService);
   private formBuilder = inject(FormBuilder);
 
   ngOnInit(): void {
@@ -55,30 +55,32 @@ export class AuthPageComponent implements OnInit {
         password: ['', [passwordValidator(8, 36)]],
       })
       : this.formBuilder.group({
-        email: ['', [Validators.email, trimValidator(0, 256)]],
-        password: ['', [passwordValidator(8, 36)]],
+        email: [''],
+        password: [''],
       });
   }
 
   onSubmit(): void {
     this.isRegistrationPage
-      ? this.authService
+      ? this.usersService
         .register$(this.authForm.value)
         .pipe(
           tap((data: AuthResponse) => {
-            this.authService.setToken(data.token);
-            this.router.navigate(['/home']);
+            this.usersService.setToken(data.token);
           }),
+          switchMap(() => this.usersService.getCurrentUser$()),
+          finalize(() => this.router.navigate(['/home'])),
           untilDestroyed(this),
         )
         .subscribe()
-      : this.authService
+      : this.usersService
         .login$(this.authForm.value)
         .pipe(
           tap((data: AuthResponse) => {
-            this.authService.setToken(data.token);
-            this.router.navigate(['/home']);
+            this.usersService.setToken(data.token);
           }),
+          switchMap(() => this.usersService.getCurrentUser$()),
+          finalize(() => this.router.navigate(['/home'])),
           untilDestroyed(this),
         )
         .subscribe();

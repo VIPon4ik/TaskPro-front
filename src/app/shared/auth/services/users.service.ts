@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '@environments/environment';
-import { Observable } from 'rxjs';
-import { AuthResponse, LoginPayload, RegisterPayload } from '../models';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { AuthResponse, LoginPayload, RegisterPayload, User } from '../models';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class UsersService {
+  user$ = new BehaviorSubject<User | null>(null);
+
   private http = inject(HttpClient);
 
   login$(body: LoginPayload): Observable<AuthResponse> {
@@ -16,6 +18,13 @@ export class AuthService {
 
   register$(body: RegisterPayload): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(environment.baseURL + '/users/register', body);
+  }
+
+  getCurrentUser$(): Observable<User> {
+    return this.http.get<User>(environment.baseURL + '/users/me')
+      .pipe(
+        tap((user: User) => this.user$.next(user)),
+      );
   }
 
   setToken(token: string): void {

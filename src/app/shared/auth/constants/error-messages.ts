@@ -5,4 +5,5 @@ export const ERROR_MESSAGES = {
   upperCase: 'Value must contain at least 1 uppercase latter',
   lowerCase: 'Value must contain at least 1 lowercase latter',
   digit: 'Value must contain at least 1 digit',
+  email: 'Email is not valid',
 };

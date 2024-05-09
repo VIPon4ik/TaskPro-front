@@ -13,8 +13,9 @@
             formControlName="name"
             class="form-input w-full"
             placeholder="Enter your name"
+            [ngClass]="{ '!border-danger' : authForm.controls['name'].errors && authForm.controls['name'].dirty }"
           />
-          @if (authForm.controls['name'].touched) {
+          @if (authForm.controls['name'].dirty) {
             @for (error of authForm.controls['name'].errors | keyvalue; track error.key) {
               <span class="text-danger text-xs">{{ errorMessages[error.key] }}</span>
             }
@@ -28,8 +29,9 @@
           formControlName="email"
           class="form-input w-full"
           placeholder="Enter your email"
+          [ngClass]="{ '!border-danger' : authForm.controls['email'].errors && authForm.controls['email'].dirty }"
         />
-        @if (authForm.controls['email'].touched) {
+        @if (authForm.controls['email'].dirty) {
           @for (error of authForm.controls['email'].errors | keyvalue; track error.key) {
             <span class="text-danger text-xs">{{ errorMessages[error.key] }}</span>
           }
@@ -39,16 +41,17 @@
         <div class="relative password-container">
           <input
             name="password"
-            class="form-input w-full"
+            class="form-input w-full"  
             placeholder="Create a password"
             formControlName="password"
-            [type]="hidePassword ? 'password' : 'text'"
+            [ngClass]="{ '!border-danger' : authForm.controls['password'].errors && authForm.controls['password'].dirty }"
+            [type]="hidePassword && isRegistrationPage ? 'password' : 'text'"
           />
-          <button type="button" class="absolute top-4 right-4 opacity-40" (click)="hidePassword = !hidePassword">
+          <button *ngIf="isRegistrationPage" type="button" class="absolute top-4 right-4 opacity-40" (click)="hidePassword = !hidePassword">
             <img src="./assets/eye.svg">
           </button>
         </div>
-        @if (authForm.controls['password'].touched) {
+        @if (authForm.controls['password'].dirty) {
           @for (error of authForm.controls['password'].errors | keyvalue; track error.key) {
             <span class="text-danger text-xs">{{ errorMessages[error.key] }}</span>
           }
