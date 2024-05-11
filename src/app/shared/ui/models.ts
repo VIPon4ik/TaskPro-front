@@ -3,3 +3,13 @@ export enum InputType {
   Password = 'password',
   Email = 'email',
 }
+
+export enum ButtonType {
+  Button = 'button',
+  Submit = 'submit',
+}
+
+export enum ButtonColor {
+  Primary = 'primary',
+  Secondary = 'secondary',
+}

@@ -22,13 +22,14 @@
         <tp-input placeholder="Create a password" [type]="InputType.Password" [control]="authForm.controls['password'] | getFormControl"></tp-input>
       </li>
     </ul>
-    <button
-      class="btn w-full bg-green py-4 text-black"
-      type="submit"
+    <tp-button
+      class="w-full"
+      [color]="ButtonColor.Secondary"
+      [type]="ButtonType.Submit"
       [disabled]="authForm.invalid"
-      (click)="onSubmit()"
+      (btnClick)="onSubmit()"
     >
       {{ isRegistrationPage ? 'Register Now' : 'Log In Now' }}
-    </button>
+    </tp-button>
   </form>
 </div>

@@ -10,24 +10,34 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { AuthResponse } from '@shared/auth/models';
 import { UsersService } from '@shared/auth/services/users.service';
 import { trimValidator } from '@shared/auth/validators/trim-validator';
-import { finalize, switchMap, tap } from 'rxjs';
+import { switchMap, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { InputComponent } from '@shared/ui/components/input/input.component';
 import { GetFormControlPipe } from '@shared/ui/pipes/get-form-control.pipe';
-import { InputType } from '@shared/ui/models';
+import { ButtonColor, ButtonType, InputType } from '@shared/ui/models';
+import { ButtonComponent } from '@shared/ui/components/button/button.component';
 import { passwordValidator } from './validators';
 
 @UntilDestroy()
 @Component({
   selector: 'tp-registration-page',
   standalone: true,
-  imports: [RouterModule, ReactiveFormsModule, CommonModule, InputComponent, GetFormControlPipe],
+  imports: [
+    RouterModule,
+    ReactiveFormsModule,
+    CommonModule,
+    InputComponent,
+    GetFormControlPipe,
+    ButtonComponent,
+  ],
   templateUrl: './auth-page.component.html',
 })
 export class AuthPageComponent implements OnInit {
   authForm!: FormGroup;
   isRegistrationPage = false;
   InputType = InputType;
+  ButtonType = ButtonType;
+  ButtonColor = ButtonColor;
 
   private activatedRoute = inject(ActivatedRoute);
   private router = inject(Router);
@@ -64,22 +74,18 @@ export class AuthPageComponent implements OnInit {
       ? this.usersService
         .register$(this.authForm.value)
         .pipe(
-          tap((data: AuthResponse) => {
-            this.usersService.setToken(data.token);
-          }),
+          tap((data: AuthResponse) => this.usersService.setToken(data.token)),
           switchMap(() => this.usersService.getCurrentUser$()),
-          finalize(() => this.router.navigate(['/home'])),
+          tap(() => this.router.navigate(['/home'])),
           untilDestroyed(this),
         )
         .subscribe()
       : this.usersService
         .login$(this.authForm.value)
         .pipe(
-          tap((data: AuthResponse) => {
-            this.usersService.setToken(data.token);
-          }),
+          tap((data: AuthResponse) => this.usersService.setToken(data.token)),
           switchMap(() => this.usersService.getCurrentUser$()),
-          finalize(() => this.router.navigate(['/home'])),
+          tap(() => this.router.navigate(['/home'])),
           untilDestroyed(this),
         )
         .subscribe();
