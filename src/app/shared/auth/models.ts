@@ -1,3 +1,7 @@
+export interface ErrorMessages { 
+  [key: string]: string;
+}
+
 export interface RegisterPayload {
   name: string;
   email: string;

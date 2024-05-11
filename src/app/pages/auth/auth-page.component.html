@@ -1,70 +1,34 @@
-<div class="flex justify-center items-center h-screen md:max-w-[424px] mx-auto">
-  <form class="p-6 md:p-10 bg-primary-black w-full rounded-lg" [formGroup]="authForm">
-    <div class="flex gap-4 mb-10 text-white text-lg font-medium">
-      <a routerLink="/auth/registration" [class.opacity-40]="!isRegistrationPage">Registration</a>
+<div class="mx-auto flex h-screen items-center justify-center md:max-w-[424px]">
+  <form
+    class="w-full rounded-lg bg-primary-black p-6 md:p-10"
+    [formGroup]="authForm"
+  >
+    <div class="mb-10 flex gap-4 text-lg font-medium text-white">
+      <a routerLink="/auth/registration" [class.opacity-40]="!isRegistrationPage">
+        Registration
+      </a>
       <a routerLink="/auth/login" [class.opacity-40]="isRegistrationPage">Log In</a>
     </div>
-    <ul class="flex flex-col gap-4 mb-6">
+    <ul class="mb-6 flex flex-col gap-4">
       @if (isRegistrationPage) {
         <li>
-          <input
-            type="text"
-            name="name"
-            formControlName="name"
-            class="form-input w-full"
-            placeholder="Enter your name"
-            [ngClass]="{ '!border-danger' : authForm.controls['name'].errors && authForm.controls['name'].dirty }"
-          />
-          @if (authForm.controls['name'].dirty) {
-            @for (error of authForm.controls['name'].errors | keyvalue; track error.key) {
-              <span class="text-danger text-xs">{{ errorMessages[error.key] }}</span>
-            }
-          }
+          <tp-input placeholder="Enter your name" [type]="InputType.Text" [control]="authForm.controls['name'] | getFormControl"></tp-input>
         </li>
       }
       <li>
-        <input
-          type="text"
-          name="email"
-          formControlName="email"
-          class="form-input w-full"
-          placeholder="Enter your email"
-          [ngClass]="{ '!border-danger' : authForm.controls['email'].errors && authForm.controls['email'].dirty }"
-        />
-        @if (authForm.controls['email'].dirty) {
-          @for (error of authForm.controls['email'].errors | keyvalue; track error.key) {
-            <span class="text-danger text-xs">{{ errorMessages[error.key] }}</span>
-          }
-        }
+        <tp-input placeholder="Enter your email" [type]="InputType.Email" [control]="authForm.controls['email'] | getFormControl"></tp-input>
       </li>
       <li>
-        <div class="relative password-container">
-          <input
-            name="password"
-            class="form-input w-full"  
-            placeholder="Create a password"
-            formControlName="password"
-            [ngClass]="{ '!border-danger' : authForm.controls['password'].errors && authForm.controls['password'].dirty }"
-            [type]="hidePassword && isRegistrationPage ? 'password' : 'text'"
-          />
-          <button *ngIf="isRegistrationPage" type="button" class="absolute top-4 right-4 opacity-40" (click)="hidePassword = !hidePassword">
-            <img src="./assets/eye.svg">
-          </button>
-        </div>
-        @if (authForm.controls['password'].dirty) {
-          @for (error of authForm.controls['password'].errors | keyvalue; track error.key) {
-            <span class="text-danger text-xs">{{ errorMessages[error.key] }}</span>
-          }
-        }
+        <tp-input placeholder="Create a password" [type]="InputType.Password" [control]="authForm.controls['password'] | getFormControl"></tp-input>
       </li>
     </ul>
-    <button 
-      class="btn w-full bg-green text-black py-4" 
+    <button
+      class="btn w-full bg-green py-4 text-black"
       type="submit"
       [disabled]="authForm.invalid"
       (click)="onSubmit()"
     >
-      {{ isRegistrationPage ? 'Register Now' : 'Log In Now'}}
+      {{ isRegistrationPage ? 'Register Now' : 'Log In Now' }}
     </button>
   </form>
 </div>

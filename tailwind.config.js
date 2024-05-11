@@ -14,6 +14,7 @@ module.exports = {
       backgroundColor: {
         'primary-black': '#161616',
         'secondary-black': '#232323',
+        'input-black': '#1F1F1F',
         'green': '#BEDBB0'
       },
       colors: {
@@ -22,7 +23,11 @@ module.exports = {
       },
       borderColor: {
         'danger': '#ff8769',
+        'green': '#BEDBB0',
       },
+      outlineColor: {
+        'green': '#BEDBB0',
+      }
     },
   },
   plugins: [],

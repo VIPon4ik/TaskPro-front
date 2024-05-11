@@ -12,23 +12,22 @@ import { UsersService } from '@shared/auth/services/users.service';
 import { trimValidator } from '@shared/auth/validators/trim-validator';
 import { finalize, switchMap, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { ERROR_MESSAGES } from '@shared/auth/constants/error-messages';
+import { InputComponent } from '@shared/ui/components/input/input.component';
+import { GetFormControlPipe } from '@shared/ui/pipes/get-form-control.pipe';
+import { InputType } from '@shared/ui/models';
 import { passwordValidator } from './validators';
 
 @UntilDestroy()
 @Component({
   selector: 'tp-registration-page',
   standalone: true,
-  imports: [RouterModule, ReactiveFormsModule, CommonModule],
+  imports: [RouterModule, ReactiveFormsModule, CommonModule, InputComponent, GetFormControlPipe],
   templateUrl: './auth-page.component.html',
-  styleUrl: './auth-page.component.scss',
 })
 export class AuthPageComponent implements OnInit {
   authForm!: FormGroup;
   isRegistrationPage = false;
-  isLoading!: boolean;
-  hidePassword = true;
-  errorMessages: { [key: string]: string } = ERROR_MESSAGES;
+  InputType = InputType;
 
   private activatedRoute = inject(ActivatedRoute);
   private router = inject(Router);
