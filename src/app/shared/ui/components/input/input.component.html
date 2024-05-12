@@ -17,7 +17,7 @@
   </button>
   @if (control.dirty) {
     @for (error of control.errors | keyvalue; track error.key) {
-      <span class="text-xs text-danger">{{ errorMessages[error.key] }}</span>
+      <span class="text-xs text-danger">{{ error.value }}</span>
     }
   }
 </div>

@@ -7,27 +7,27 @@ export const passwordValidator = (min: number, max: number): ValidatorFn => (con
   const hasDigit = /\d/.test(value);
 
   if (value.length === 0) {
-    return { required: true };
+    return { required: 'This field is required' };
   }
 
   if (value.length < min) {
-    return { minLength: true };
+    return { minLength: `Min length is ${min}` };
   }
 
   if (value.length > max) {
-    return { maxLength: true };
+    return { maxLength: `Max length is ${max}` };
   }
 
   if (!hasUpperCase) {
-    return { upperCase: true };
+    return { upperCase: 'Value must contain at least 1 uppercase latter' };
   }
 
   if (!hasLowerCase) {
-    return { lowerCase: true };
+    return { lowerCase: 'Value must contain at least 1 lowercase latter' };
   }
 
   if (!hasDigit) {
-    return { digit: true };
+    return { digit: 'Value must contain at least 1 digit' };
   }
 
   return null;

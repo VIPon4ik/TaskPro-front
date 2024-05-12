@@ -3,7 +3,6 @@ import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
-  Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -16,7 +15,9 @@ import { InputComponent } from '@shared/ui/components/input/input.component';
 import { GetFormControlPipe } from '@shared/ui/pipes/get-form-control.pipe';
 import { ButtonColor, ButtonType, InputType } from '@shared/ui/models';
 import { ButtonComponent } from '@shared/ui/components/button/button.component';
+import { ModalService } from '@shared/modal/services/modal.service';
 import { passwordValidator } from './validators';
+import { emailValidator } from './validators/email-validator';
 
 @UntilDestroy()
 @Component({
@@ -43,6 +44,7 @@ export class AuthPageComponent implements OnInit {
   private router = inject(Router);
   private usersService = inject(UsersService);
   private formBuilder = inject(FormBuilder);
+  private modalService = inject(ModalService);
 
   ngOnInit(): void {
     this.activatedRoute.url
@@ -60,7 +62,7 @@ export class AuthPageComponent implements OnInit {
     this.authForm = this.isRegistrationPage
       ? this.formBuilder.group({
         name: ['', trimValidator(2, 36)],
-        email: ['', [Validators.email, trimValidator(0, 256)]],
+        email: ['', [emailValidator(0, 256)]],
         password: ['', [passwordValidator(8, 36)]],
       })
       : this.formBuilder.group({
