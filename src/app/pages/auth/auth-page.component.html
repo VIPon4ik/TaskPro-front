@@ -4,10 +4,10 @@
     [formGroup]="authForm"
   >
     <div class="mb-10 flex gap-4 text-lg font-medium text-white">
-      <a routerLink="/auth/registration" [class.opacity-40]="!isRegistrationPage">
+      <a routerLink="/auth/registration" [class.opacity-30]="!isRegistrationPage">
         Registration
       </a>
-      <a routerLink="/auth/login" [class.opacity-40]="isRegistrationPage">Log In</a>
+      <a routerLink="/auth/login" [class.opacity-30]="isRegistrationPage">Log In</a>
     </div>
     <ul class="mb-6 flex flex-col gap-4">
       @if (isRegistrationPage) {
@@ -23,7 +23,6 @@
       </li>
     </ul>
     <tp-button
-      class="w-full"
       [color]="ButtonColor.Secondary"
       [type]="ButtonType.Submit"
       [disabled]="authForm.invalid"

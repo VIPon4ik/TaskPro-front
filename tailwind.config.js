@@ -12,13 +12,15 @@ module.exports = {
         'mobile': '375px'
       },
       backgroundColor: {
+        'app-background': '#1F1F1F',
+        'sidebar': '#121212',
         'primary-black': '#161616',
         'secondary-black': '#232323',
         'input-black': '#1F1F1F',
         'green': '#BEDBB0',
-        'green-darker':'#abcc9b',
+        'green-drk':'#a1c291',
         'disabled': '#404040',
-        'disabled-darker': '#363636'
+        'disabled-drk': '#363636'
       },
       colors: {
         'primary-black': '#161616',
@@ -31,6 +33,9 @@ module.exports = {
       outlineColor: {
         'green': '#BEDBB0',
       },
+      fill: {
+        'black': '#1F1F1F',
+      }
     },
   },
   plugins: [],

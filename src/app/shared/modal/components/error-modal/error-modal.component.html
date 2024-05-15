@@ -1,5 +1,3 @@
 <h2 class="mb-4 text-center uppercase text-danger">{{ options.header }}</h2>
-<p class="mb-5 text-center text-white">{{ options.content }}</p>
-<tp-button [color]="ButtonColor.Secondary" (btnClick)="closeModal.emit()"
-  >OK</tp-button
->
+<p class="mb-5 text-center">{{ options.content }}</p>
+<tp-button [color]="ButtonColor.Secondary" (btnClick)="closeModal.emit()">OK</tp-button>

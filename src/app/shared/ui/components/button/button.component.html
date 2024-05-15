@@ -1,9 +1,9 @@
 <button
-  class="w-full cursor-pointer rounded-lg py-4 text-sm font-medium tracking-[-0.02em] transition-colors disabled:bg-disabled-darker disabled:text-white disabled:hover:bg-disabled"
+  class="w-full cursor-pointer rounded-lg py-4 text-sm font-medium tracking-[-0.02em] transition-colors disabled:bg-disabled-drk disabled:text-white disabled:hover:bg-disabled"
   [ngClass]="{
-    'bg-primary-black text-white hover:bg-secondary-black': color === ButtonColor.Primary,
-    'bg-green text-black hover:bg-green-darker': color === ButtonColor.Secondary,
-    'bg-transparent hover:bg-green-darker': color === ButtonColor.Transparent
+    'bg-primary-black hover:bg-secondary-black': color === ButtonColor.Primary,
+    'bg-green text-black hover:bg-green-drk': color === ButtonColor.Secondary,
+    'bg-transparent text-primary-black hover:bg-green-drk': color === ButtonColor.Transparent
   }"
   [type]="type"
   [disabled]="disabled"
