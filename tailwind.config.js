@@ -12,11 +12,10 @@ module.exports = {
         'mobile': '375px'
       },
       backgroundColor: {
-        'app-background': '#1F1F1F',
         'sidebar': '#121212',
         'primary-black': '#161616',
         'secondary-black': '#232323',
-        'input-black': '#1F1F1F',
+        'accent-black': '#1F1F1F',
         'green': '#BEDBB0',
         'green-drk':'#a1c291',
         'disabled': '#404040',
@@ -25,10 +24,12 @@ module.exports = {
       colors: {
         'primary-black': '#161616',
         'danger': '#ff8769',
+        'green': '#BEDBB0',
       },
       borderColor: {
         'danger': '#ff8769',
         'green': '#BEDBB0',
+        'white-zero': 'rgba(255,255,255,0.1)',
       },
       outlineColor: {
         'green': '#BEDBB0',

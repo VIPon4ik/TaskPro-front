@@ -1,6 +1,41 @@
-<aside class="bg-sidebar w-[225px] h-screen fixed top-0 left-0 px-4 pt-4 pb-6">
-  <div>
-    <img src="./assets/logo.svg">
+<aside
+  class="bg-sidebar fixed left-0 top-0 h-screen min-h-[665px] w-[225px] px-4 pb-6 pt-4 z-10"
+>
+  <div class="mb-[72px] flex items-center gap-2">
+    <img src="./assets/logo.svg" />
     <h4>Task Pro</h4>
   </div>
+
+  <p class="mb-2 text-xs opacity-50">My boards</p>
+
+  <div
+    class="border-t-white-zero border-b-white-zero mb-10 flex items-center justify-between border-b border-t border-solid py-4"
+  >
+    <h3 class="max-w-[76px]">Create a new board</h3>
+    <button class="hover:bg-green-drk rounded-md bg-green p-2" type="button">
+      <img src="./assets/plus.svg" />
+    </button>
+  </div>
+
+  <div class="bg-accent-black mb-6 mt-28 rounded-lg p-4">
+    <img class="mb-4" src="./assets/flower.svg" />
+    <p class="mb-4">
+      If you need help with <span class="text-green">TaskPro</span>, check out
+      our support resources or reach out to our customer support team.
+    </p>
+    <span class="flex items-center gap-2">
+      <div class="flex items-center">
+        <img src="./assets/help-circle.svg" />
+        <p>Need help?</p>
+      </div>
+    </span>
+  </div>
+
+  <button class="flex items-center gap-2">
+    <img src="./assets/login.svg" />
+    Log Out
+  </button>
 </aside>
+
+<div class="h-screen w-screen opacity-50 fixed left-0 top-0 bg-primary-black" (click)="closeSidebar.emit()">
+</div>

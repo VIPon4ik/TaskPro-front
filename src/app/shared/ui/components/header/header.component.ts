@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { User } from '@shared/auth/models';
 
 @Component({
@@ -8,4 +8,5 @@ import { User } from '@shared/auth/models';
 })
 export class HeaderComponent {
   @Input() user!: User;
+  @Output() openSidebar = new EventEmitter<void>();
 }

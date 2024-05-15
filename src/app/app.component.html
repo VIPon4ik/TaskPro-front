@@ -1,12 +1,8 @@
-@if (currentUser.value) {
-  <tp-header [user]="currentUser.value"></tp-header>
-  <tp-sidebar></tp-sidebar>
-}
-<main
+<div
   [class.bg-welcome-page]="!currentUser.value"
-  [class.bg-app-background]="currentUser.value"
+  [class.bg-accent-black]="currentUser.value"
 >
   <div class="mx-auto min-h-screen px-5 mobile:max-w-[375px] md:max-w-3xl">
     <router-outlet></router-outlet>
   </div>
-</main>
+</div>
