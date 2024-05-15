@@ -8,16 +8,29 @@ module.exports = {
       backgroundImage: {
         'welcome-page': 'linear-gradient(180deg, rgba(196, 196, 196, 0) 25%, #BEDBB0 92.19%)',
       },
-      backgroundColor: {
-        'black': '#161616',
-        'green': '#BEDBB0'
-      },
       screens: {
         'mobile': '375px'
       },
+      backgroundColor: {
+        'primary-black': '#161616',
+        'secondary-black': '#232323',
+        'input-black': '#1F1F1F',
+        'green': '#BEDBB0',
+        'green-darker':'#abcc9b',
+        'disabled': '#404040',
+        'disabled-darker': '#363636'
+      },
       colors: {
-        'black': '#161616',
-      }
+        'primary-black': '#161616',
+        'danger': '#ff8769',
+      },
+      borderColor: {
+        'danger': '#ff8769',
+        'green': '#BEDBB0',
+      },
+      outlineColor: {
+        'green': '#BEDBB0',
+      },
     },
   },
   plugins: [],

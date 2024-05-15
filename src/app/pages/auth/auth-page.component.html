@@ -1,16 +1,35 @@
-<div class="flex justify-center items-center h-screen md:max-w-[424px] mx-auto">
-  <form class="p-6 md:p-10 bg-black w-full rounded-lg">
-    <div class="flex gap-4 mb-10 text-white text-lg font-medium">
-      <a>Registration</a>
-      <a>Log In</a>
+<div class="mx-auto flex h-screen items-center justify-center md:max-w-[424px]">
+  <form
+    class="w-full rounded-lg bg-primary-black p-6 md:p-10"
+    [formGroup]="authForm"
+  >
+    <div class="mb-10 flex gap-4 text-lg font-medium text-white">
+      <a routerLink="/auth/registration" [class.opacity-40]="!isRegistrationPage">
+        Registration
+      </a>
+      <a routerLink="/auth/login" [class.opacity-40]="isRegistrationPage">Log In</a>
     </div>
-    <ul class="flex flex-col gap-4 mb-6">
-      <li><input type="text" class="form-input w-full" placeholder="Enter your name"></li>
-      <li><input type="text" class="form-input w-full" placeholder="Enter your email"></li>
-      <li><input type="text" class="form-input w-full" placeholder="Create a password"></li>
+    <ul class="mb-6 flex flex-col gap-4">
+      @if (isRegistrationPage) {
+        <li>
+          <tp-input placeholder="Enter your name" [type]="InputType.Text" [control]="authForm.controls['name'] | getFormControl"></tp-input>
+        </li>
+      }
+      <li>
+        <tp-input placeholder="Enter your email" [type]="InputType.Email" [control]="authForm.controls['email'] | getFormControl"></tp-input>
+      </li>
+      <li>
+        <tp-input placeholder="Create a password" [type]="InputType.Password" [control]="authForm.controls['password'] | getFormControl"></tp-input>
+      </li>
     </ul>
-    <button class="btn w-full bg-green text-black py-4">
-      Register Now
-    </button>
+    <tp-button
+      class="w-full"
+      [color]="ButtonColor.Secondary"
+      [type]="ButtonType.Submit"
+      [disabled]="authForm.invalid"
+      (btnClick)="onSubmit()"
+    >
+      {{ isRegistrationPage ? 'Register Now' : 'Log In Now' }}
+    </tp-button>
   </form>
 </div>
