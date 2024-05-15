@@ -10,7 +10,7 @@ import { ButtonColor, ButtonType } from '@shared/ui/models';
   templateUrl: './button.component.html',
 })
 export class ButtonComponent {
-  @Input() color!: ButtonColor; 
+  @Input() color: ButtonColor = ButtonColor.Primary; 
   @Input() disabled!: boolean;
   @Input() type: ButtonType = ButtonType.Button;
   @Input() link!: string;

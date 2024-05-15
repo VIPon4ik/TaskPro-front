@@ -1,3 +1,11 @@
+import { EventEmitter } from '@angular/core';
+
+export interface Modal {
+  closeModal: EventEmitter<void>;
+  options?: ModalOptions;
+}
+
 export interface ModalOptions {
-  content: string;
+  header?: string;
+  content?: string;
 }

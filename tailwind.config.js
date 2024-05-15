@@ -15,7 +15,10 @@ module.exports = {
         'primary-black': '#161616',
         'secondary-black': '#232323',
         'input-black': '#1F1F1F',
-        'green': '#BEDBB0'
+        'green': '#BEDBB0',
+        'green-darker':'#abcc9b',
+        'disabled': '#404040',
+        'disabled-darker': '#363636'
       },
       colors: {
         'primary-black': '#161616',
@@ -27,7 +30,7 @@ module.exports = {
       },
       outlineColor: {
         'green': '#BEDBB0',
-      }
+      },
     },
   },
   plugins: [],

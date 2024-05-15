@@ -19,6 +19,7 @@ module.exports = {
           extends: ['plugin:@angular-eslint/recommended', 'plugin:@angular-eslint/template/process-inline-templates', 'plugin:rxjs/recommended'],
           rules: {
               // rxjs
+              'rxjs/no-implicit-any-catch': 'off',
               'rxjs/no-ignored-takewhile-value': 'off',
               'rxjs/no-async-subscribe': 'error',
               'rxjs/no-nested-subscribe': 'error',
@@ -33,6 +34,9 @@ module.exports = {
                   }
               ],
               // TS
+              '@typescript-eslint/explicit-function-return-type': ['error', {
+                'allowExpressions': true
+              }],
               '@typescript-eslint/no-explicit-any': 'error',
               '@typescript-eslint/array-type': [
                   'error',
@@ -170,7 +174,7 @@ module.exports = {
           rules: {
               '@angular-eslint/template/no-negated-async': 'error',
               '@angular-eslint/template/eqeqeq': 'error',
-              "@angular-eslint/template/attributes-order": "error",
+              '@angular-eslint/template/attributes-order': 'error',
               '@angular-eslint/template/no-call-expression': 'error',
               '@angular-eslint/template/use-track-by-function': 'error',
               '@angular-eslint/template/conditional-complexity': ['error', { maxComplexity: 10 }],

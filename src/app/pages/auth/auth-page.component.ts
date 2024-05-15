@@ -1,3 +1,4 @@
+import { catchError, of, switchMap, tap } from 'rxjs';
 import { Component, OnInit, inject } from '@angular/core';
 import {
   FormBuilder,
@@ -5,17 +6,18 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { AuthResponse } from '@shared/auth/models';
 import { UsersService } from '@shared/auth/services/users.service';
 import { trimValidator } from '@shared/auth/validators/trim-validator';
-import { switchMap, tap } from 'rxjs';
-import { CommonModule } from '@angular/common';
 import { InputComponent } from '@shared/ui/components/input/input.component';
 import { GetFormControlPipe } from '@shared/ui/pipes/get-form-control.pipe';
 import { ButtonColor, ButtonType, InputType } from '@shared/ui/models';
 import { ButtonComponent } from '@shared/ui/components/button/button.component';
 import { ModalService } from '@shared/modal/services/modal.service';
+import { ErrorModalComponent } from '@shared/modal/components/error-modal/error-modal.component';
 import { passwordValidator } from './validators';
 import { emailValidator } from './validators/email-validator';
 
@@ -77,6 +79,10 @@ export class AuthPageComponent implements OnInit {
         .register$(this.authForm.value)
         .pipe(
           tap((data: AuthResponse) => this.usersService.setToken(data.token)),
+          catchError((error: HttpErrorResponse) => {
+            this.modalService.open(ErrorModalComponent, { header: error.error.error, content: error.error.message });
+            return of();
+          }),
           switchMap(() => this.usersService.getCurrentUser$()),
           tap(() => this.router.navigate(['/home'])),
           untilDestroyed(this),
@@ -86,6 +92,10 @@ export class AuthPageComponent implements OnInit {
         .login$(this.authForm.value)
         .pipe(
           tap((data: AuthResponse) => this.usersService.setToken(data.token)),
+          catchError((error: HttpErrorResponse) => {
+            this.modalService.open(ErrorModalComponent, { header: error.error.error, content: error.error.message });
+            return of();
+          }),
           switchMap(() => this.usersService.getCurrentUser$()),
           tap(() => this.router.navigate(['/home'])),
           untilDestroyed(this),
