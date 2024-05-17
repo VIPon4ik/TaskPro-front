@@ -1,5 +1,6 @@
 <aside
-  class="bg-sidebar fixed left-0 top-0 h-screen min-h-[665px] w-[225px] px-4 pb-6 pt-4 z-10"
+  class="bg-sidebar fixed left-0 top-0 z-10 h-screen min-h-[665px] w-[225px] px-4 pb-6 pt-4"
+  [@slide]="showSidebar ? 'endPosition' : 'startPosition'"
 >
   <div class="mb-[72px] flex items-center gap-2">
     <img src="./assets/logo.svg" />
@@ -37,5 +38,8 @@
   </button>
 </aside>
 
-<div class="h-screen w-screen opacity-50 fixed left-0 top-0 bg-primary-black" (click)="closeSidebar.emit()">
-</div>
+<div
+  class="fixed left-0 top-0 h-screen w-screen bg-primary-black"
+  [@appear]="showSidebar ? 'visible' : 'notVisible'"
+  (click)="onClose()"
+></div>

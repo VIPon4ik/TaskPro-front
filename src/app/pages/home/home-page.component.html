@@ -1,14 +1,12 @@
 @if (currentUser.value) {
-  <tp-header 
+  <tp-header
     [user]="currentUser.value"
     (openSidebar)="showSidebar = !showSidebar"
   ></tp-header>
 }
-@if (showSidebar) {
-  <tp-sidebar 
-    (closeSidebar)="showSidebar = !showSidebar"
-  ></tp-sidebar>
-}
-<main>
 
-</main>
+<tp-sidebar
+  [showSidebar]="showSidebar"
+  (closeSidebar)="showSidebar = !showSidebar"
+></tp-sidebar>
+<main></main>
