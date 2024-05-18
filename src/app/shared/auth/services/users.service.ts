@@ -20,6 +20,11 @@ export class UsersService {
     return this.http.post<AuthResponse>(environment.baseURL + '/users/register', body);
   }
 
+  logOut(): void {
+    localStorage.removeItem('token');
+    this.user$.next(null);
+  }
+
   getCurrentUser$(): Observable<User> {
     return this.http.get<User>(environment.baseURL + '/users/me')
       .pipe(

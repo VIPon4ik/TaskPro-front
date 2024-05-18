@@ -8,5 +8,16 @@
 <tp-sidebar
   [showSidebar]="showSidebar"
   (closeSidebar)="showSidebar = !showSidebar"
+  (openDashboardModal)="openDashboardModal()"
 ></tp-sidebar>
-<main></main>
+<main class="relative h-screen pt-16">
+  <p
+    class="absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 text-center text-xs text-white text-opacity-50 md:max-w-[486px] md:text-sm"
+  >
+    Before starting your project, it is essential
+    <span class="text-green cursor-pointer" (click)="openDashboardModal()"> to create a board </span> to visualize and track
+    all the necessary tasks and milestones. This board serves as a powerful tool
+    to organize the workflow and ensure effective collaboration among team
+    members.
+  </p>
+</main>

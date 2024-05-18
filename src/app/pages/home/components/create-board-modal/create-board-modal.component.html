@@ -1,0 +1,51 @@
+<form>
+  <h2 class="mb-6">New board</h2>
+
+  <div class="mb-6">
+    <tp-input
+      placeholder="Title"
+      [control]="dashboardForm.controls['title'] | getFormControl"
+    ></tp-input>
+  </div>
+
+  <div class="mb-6">
+    <h3 class="mb-4">Icons</h3>
+    <ul class="flex gap-2">
+      @for (icon of icons; track $index) {
+        <li>
+          <button type="button">
+            <img
+              [src]="'./assets/dashboard-icons/' + icon + '.svg'"
+              [alt]="icon"
+            />
+          </button>
+        </li>
+      }
+    </ul>
+  </div>
+
+  <div class="mb-10">
+    <h3 class="mb-4">Background</h3>
+    <ul class="flex flex-wrap gap-2">
+      @for (bg of backgrounds; track $index) {
+        <li>
+          <button type="button">
+            <img
+              [src]="'./assets/dashboard-bg-icons/' + bg + '.svg'"
+              [alt]="bg"
+            />
+          </button>
+        </li>
+      }
+    </ul>
+  </div>
+
+  <tp-button [color]="ButtonColor.Secondary">
+    <div class="flex items-center justify-center gap-2">
+      <span class="rounded-md bg-white p-1">
+        <img src="./assets/plus.svg" />
+      </span>
+      <span> Create </span>
+    </div>
+  </tp-button>
+</form>

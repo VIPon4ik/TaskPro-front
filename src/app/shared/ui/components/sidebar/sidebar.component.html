@@ -1,45 +1,47 @@
 <aside
-  class="bg-sidebar fixed left-0 top-0 z-10 h-screen min-h-[665px] w-[225px] px-4 pb-6 pt-4"
+  class="fixed left-0 top-0 z-20 h-screen min-h-[665px] w-[225px] bg-sidebar px-4 pb-6 pt-4 md:w-[260px] md:p-6"
   [@slide]="showSidebar ? 'endPosition' : 'startPosition'"
 >
   <div class="mb-[72px] flex items-center gap-2">
     <img src="./assets/logo.svg" />
-    <h4>Task Pro</h4>
+    <h1 class="text-base text-white">Task Pro</h1>
   </div>
 
   <p class="mb-2 text-xs opacity-50">My boards</p>
 
   <div
-    class="border-t-white-zero border-b-white-zero mb-10 flex items-center justify-between border-b border-t border-solid py-4"
+    class="mb-10 flex items-center justify-between border-b border-t border-solid border-b-white-zero border-t-white-zero py-4"
   >
     <h3 class="max-w-[76px]">Create a new board</h3>
-    <button class="hover:bg-green-drk rounded-md bg-green p-2" type="button">
+    <button
+      class="rounded-md bg-green p-2 transition-colors hover:bg-green-drk"
+      type="button"
+      (click)="openDashboardModal.emit()"
+    >
       <img src="./assets/plus.svg" />
     </button>
   </div>
 
-  <div class="bg-accent-black mb-6 mt-28 rounded-lg p-4">
+  <div class="mb-6 mt-28 rounded-lg bg-accent-black p-4 md:p-5">
     <img class="mb-4" src="./assets/flower.svg" />
-    <p class="mb-4">
+    <p class="mb-4 md:text-sm">
       If you need help with <span class="text-green">TaskPro</span>, check out
       our support resources or reach out to our customer support team.
     </p>
     <span class="flex items-center gap-2">
-      <div class="flex items-center">
-        <img src="./assets/help-circle.svg" />
-        <p>Need help?</p>
-      </div>
+      <img src="./assets/help-circle.svg" />
+      <p>Need help?</p>
     </span>
   </div>
 
-  <button class="flex items-center gap-2">
+  <button class="flex items-center gap-2" (click)="onLogOut()">
     <img src="./assets/login.svg" />
     Log Out
   </button>
 </aside>
 
 <div
-  class="fixed left-0 top-0 h-screen w-screen bg-primary-black"
+  class="desktop:!hidden fixed left-0 top-0 h-screen w-screen bg-primary-black z-10"
   [@appear]="showSidebar ? 'visible' : 'notVisible'"
-  (click)="onClose()"
+  (click)="closeSidebar.emit()"
 ></div>

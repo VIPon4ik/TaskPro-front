@@ -1,9 +1,11 @@
 <header
   class="fixed left-0 top-0 flex w-screen items-center justify-between bg-primary-black px-5 py-4"
 >
-  <button (click)="openSidebar.emit()">
-    <img src="./assets/burger.svg" />
-  </button>
+  <div>
+    <button class="desktop:hidden" (click)="openSidebar.emit()">
+      <img src="./assets/burger.svg" />
+    </button>
+  </div>
   <div class="flex gap-4">
     <button class="flex items-center gap-1 opacity-80">
       <h3>Theme</h3>

@@ -1,7 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { ButtonColor } from '@shared/ui/models';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { UsersService } from '@shared/auth/services/users.service';
 import { ButtonComponent } from '../button/button.component';
 
 @Component({
@@ -18,10 +20,10 @@ import { ButtonComponent } from '../button/button.component';
         transform: 'translateX(0)',
       })),
       transition('startPosition => endPosition', [
-        animate('1s ease'),
+        animate('0.5s ease'),
       ]),
       transition('endPosition => startPosition', [
-        animate('1s ease'),
+        animate('0.5s ease'),
       ]),
     ]),
     trigger('appear', [
@@ -34,22 +36,26 @@ import { ButtonComponent } from '../button/button.component';
         opacity: 0.5,
       })),
       transition('notVisible => visible', [
-        animate('1s ease'),
+        animate('0.5s ease'),
       ]),
       transition('visible => notVisible', [
-        animate('1s ease'),
+        animate('0.5s ease'),
       ]),
     ]),
   ],
 })
-export class SidebarComponent {
+export class SidebarComponent {  
   @Input() showSidebar!: boolean;
   @Output() closeSidebar = new EventEmitter<void>();
+  @Output() openDashboardModal = new EventEmitter<void>();
   
   ButtonColor = ButtonColor;
 
-  onClose(): void {
-    this.showSidebar = !this.showSidebar;
-    setTimeout(() => this.closeSidebar.emit(), 1000);
+  private router = inject(Router);
+  private usersService = inject(UsersService);
+
+  onLogOut(): void {
+    this.usersService.logOut();
+    this.router.navigate(['login']);
   }
 }

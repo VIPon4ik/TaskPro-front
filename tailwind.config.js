@@ -9,7 +9,8 @@ module.exports = {
         'welcome-page': 'linear-gradient(180deg, rgba(196, 196, 196, 0) 25%, #BEDBB0 92.19%)',
       },
       screens: {
-        'mobile': '375px'
+        'mobile': '375px',
+        'desktop': '1440px',
       },
       backgroundColor: {
         'sidebar': '#121212',
