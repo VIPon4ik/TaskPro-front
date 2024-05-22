@@ -1,4 +1,4 @@
-<form>
+<form [formGroup]="dashboardForm">
   <h2 class="mb-6">New board</h2>
 
   <div class="mb-6">
@@ -13,12 +13,23 @@
     <ul class="flex gap-2">
       @for (icon of icons; track $index) {
         <li>
-          <button type="button">
-            <img
-              [src]="'./assets/dashboard-icons/' + icon + '.svg'"
-              [alt]="icon"
-            />
-          </button>
+          <input
+            class="hidden"
+            type="radio"
+            formControlName="icon"
+            [value]="icon"
+            [id]="icon"
+          />
+          <label class="cursor-pointer" [for]="icon">
+            <svg
+              class="stroke-white opacity-50"
+              width="18"
+              height="18"
+              [class.opacity-50]="dashboardForm.value.icon !== icon"
+            >
+              <use [attr.href]="['./assets/spirte.svg#' + icon]"></use>
+            </svg>
+          </label>
         </li>
       }
     </ul>
@@ -29,12 +40,19 @@
     <ul class="flex flex-wrap gap-2">
       @for (bg of backgrounds; track $index) {
         <li>
-          <button type="button">
+          <input
+            class="hidden"
+            type="radio"
+            formControlName="background"
+            [value]="bg"
+            [id]="bg"
+          />
+          <label class="cursor-pointer" [for]="bg">
             <img
               [src]="'./assets/dashboard-bg-icons/' + bg + '.svg'"
               [alt]="bg"
             />
-          </button>
+          </label>
         </li>
       }
     </ul>
