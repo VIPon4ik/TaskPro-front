@@ -51,16 +51,5 @@ h4 {
 }
 
 ::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1; 
-  width: 1px;
-}
- 
-::-webkit-scrollbar-thumb {
-  background: #1F1F1F; 
-  border-radius: 5px;
+  width: 0px;
 }

@@ -1,5 +1,6 @@
 <aside
-  class="fixed left-0 top-0 z-20 flex h-screen min-h-[665px] w-[225px] flex-col justify-between overflow-auto bg-sidebar px-4 pb-6 pt-4 md:w-[260px] md:p-6"
+  class="fixed left-0 top-0 z-20 flex h-screen min-h-[665px] w-[225px] flex-col justify-between overflow-x-hidden bg-sidebar px-4 pb-6 pt-4 md:w-[260px] md:p-6"
+  [@slide]="showSidebar ? 'endPosition' : 'startPosition'"
 >
   <div class="mb-[40px] flex items-center gap-2">
     <img src="./assets/logo.svg" />
@@ -21,7 +22,7 @@
     </button>
   </div>
 
-  <ul class="flex min-h-16 flex-1 flex-col gap-1 overflow-auto">
+  <ul class="flex min-h-32 flex-1 flex-col gap-1 overflow-auto relative -left-4 md:-left-6 w-[225px] md:w-[260px]">
     @for (dashboard of dashboards; track $index) {
       <li
         class="after:content-[' '] flex cursor-pointer items-center justify-between px-4 py-5 after:absolute after:right-0 after:h-[60px] after:rounded-l after:bg-green"
