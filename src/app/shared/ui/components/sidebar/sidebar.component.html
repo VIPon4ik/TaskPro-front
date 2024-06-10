@@ -1,8 +1,7 @@
 <aside
-  class="fixed left-0 top-0 z-20 h-screen min-h-[665px] w-[225px] bg-sidebar px-4 pb-6 pt-4 md:w-[260px] md:p-6"
-  [@slide]="showSidebar ? 'endPosition' : 'startPosition'"
+  class="fixed left-0 top-0 z-20 flex h-screen min-h-[665px] w-[225px] flex-col justify-between overflow-auto bg-sidebar px-4 pb-6 pt-4 md:w-[260px] md:p-6"
 >
-  <div class="mb-[72px] flex items-center gap-2">
+  <div class="mb-[40px] flex items-center gap-2">
     <img src="./assets/logo.svg" />
     <h1 class="text-base text-white">Task Pro</h1>
   </div>
@@ -10,7 +9,7 @@
   <p class="mb-2 text-xs opacity-50">My boards</p>
 
   <div
-    class="mb-10 flex items-center justify-between border-b border-t border-solid border-b-white-zero border-t-white-zero py-4"
+    class="mb-6 flex items-center justify-between border-b border-t border-solid border-b-white-zero border-t-white-zero py-4"
   >
     <h3 class="max-w-[76px]">Create a new board</h3>
     <button
@@ -22,8 +21,80 @@
     </button>
   </div>
 
+  <ul class="flex min-h-16 flex-1 flex-col gap-1 overflow-auto">
+    @for (dashboard of dashboards; track $index) {
+      <li
+        class="after:content-[' '] flex cursor-pointer items-center justify-between px-4 py-5 after:absolute after:right-0 after:h-[60px] after:rounded-l after:bg-green"
+        [class.after:w-1]="dashboard.id === currentDashboard?.id"
+        [class.bg-accent-black]="dashboard.id === currentDashboard?.id"
+        (click)="changeCurrentDashboard.emit(dashboard)"
+      >
+        <div class="flex gap-2">
+          <svg class="stroke-white" width="18" height="18">
+            <use [attr.href]="['./assets/spirte.svg#' + dashboard.icon]"></use>
+          </svg>
+          <h3>{{ dashboard.name }}</h3>
+        </div>
+        <div class="flex gap-2">
+          <button type="button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+            >
+              <path
+                d="M1.66663 14.3334L5.36614 12.9105C5.60277 12.8195 5.72108 12.774 5.83177 12.7146C5.93009 12.6618 6.02383 12.6009 6.11199 12.5324C6.21124 12.4554 6.30088 12.3658 6.48015 12.1865L14 4.66671C14.7364 3.93033 14.7364 2.73642 14 2.00004C13.2636 1.26366 12.0697 1.26366 11.3333 2.00004L3.81348 9.51985C3.63421 9.69912 3.54457 9.78876 3.46755 9.88801C3.39914 9.97617 3.33823 10.0699 3.28545 10.1682C3.22603 10.2789 3.18053 10.3972 3.08951 10.6339L1.66663 14.3334ZM1.66663 14.3334L3.03871 10.766C3.13689 10.5107 3.18598 10.3831 3.27019 10.3246C3.34377 10.2735 3.43483 10.2542 3.52282 10.271C3.62351 10.2902 3.72021 10.3869 3.91361 10.5803L5.41968 12.0864C5.61307 12.2798 5.70977 12.3765 5.729 12.4772C5.74581 12.5652 5.72648 12.6562 5.67539 12.7298C5.61692 12.814 5.48929 12.8631 5.23401 12.9613L1.66663 14.3334Z"
+                stroke="white"
+                stroke-opacity="0.5"
+                stroke-width="1.3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <button type="button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+            >
+              <path
+                d="M6 2H10"
+                stroke="white"
+                stroke-opacity="0.5"
+                stroke-width="1.3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M2 4H14"
+                stroke="white"
+                stroke-opacity="0.5"
+                stroke-width="1.3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M3.33331 4L3.7339 10.0089C3.80828 11.1245 3.84547 11.6823 4.02777 12.1304C4.35876 12.9441 5.0297 13.5718 5.86355 13.8479C6.32283 14 6.88188 14 7.99998 14V14C9.11808 14 9.67713 14 10.1364 13.8479C10.9703 13.5718 11.6412 12.9441 11.9722 12.1304C12.1545 11.6823 12.1917 11.1245 12.2661 10.0089L12.6666 4"
+                stroke="white"
+                stroke-opacity="0.5"
+                stroke-width="1.3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </li>
+    }
+  </ul>
+
   <div class="mb-6 mt-28 rounded-lg bg-accent-black p-4 md:p-5">
-    <img class="mb-4" src="./assets/flower.svg" />
+    <img class="mb-4" src="./assets/flower.png" />
     <p class="mb-4 md:text-sm">
       If you need help with <span class="text-green">TaskPro</span>, check out
       our support resources or reach out to our customer support team.
@@ -41,7 +112,7 @@
 </aside>
 
 <div
-  class="desktop:!hidden fixed left-0 top-0 h-screen w-screen bg-primary-black z-10"
+  class="fixed left-0 top-0 z-10 h-screen w-screen bg-primary-black desktop:!hidden"
   [@appear]="showSidebar ? 'visible' : 'notVisible'"
   (click)="closeSidebar.emit()"
 ></div>

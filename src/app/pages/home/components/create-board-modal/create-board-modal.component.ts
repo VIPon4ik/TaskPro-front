@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { DashboardBackgrounds, DashboardIcons } from '@pages/home/models';
+import { DashboardBackgrounds, DashboardIcons } from '@shared/dashboards/models';
 import { ButtonComponent } from '@shared/ui/components/button/button.component';
 import { InputComponent } from '@shared/ui/components/input/input.component';
-import { ButtonColor } from '@shared/ui/models';
+import { ButtonColor, ButtonType } from '@shared/ui/models';
 import { GetFormControlPipe } from '@shared/ui/pipes/get-form-control.pipe';
 import { tap } from 'rxjs';
 
@@ -23,9 +23,11 @@ import { tap } from 'rxjs';
 })
 export class CreateBoardModalComponent implements OnInit {
   @Output() closeModal = new EventEmitter<void>();
+  @Output() createDashboard = new EventEmitter<FormGroup>();
 
   dashboardForm!: FormGroup;
   ButtonColor = ButtonColor;
+  ButtonType = ButtonType;
   DashboardIcons = DashboardIcons;
 
   private formBuilder = inject(FormBuilder);
@@ -46,7 +48,7 @@ export class CreateBoardModalComponent implements OnInit {
 
   setupForm(): void {
     this.dashboardForm = this.formBuilder.group({
-      title: [''],
+      name: [''],
       icon: [DashboardIcons.Project],
       background: [DashboardBackgrounds.NoBg],
     });
@@ -55,11 +57,13 @@ export class CreateBoardModalComponent implements OnInit {
   handleValueChanges(): void {
     this.dashboardForm.valueChanges
       .pipe(
-        tap(() => {
-          console.log(this.dashboardForm.value);this.cdr.detectChanges();
-        }),
+        tap(() => this.cdr.detectChanges()),
         untilDestroyed(this),
       )
       .subscribe();
+  }
+
+  onSave(): void {
+    this.createDashboard.emit(this.dashboardForm);
   }
 }

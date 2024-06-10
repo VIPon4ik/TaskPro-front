@@ -4,6 +4,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { UsersService } from '@shared/auth/services/users.service';
+import { Dashboard } from '@shared/dashboards/models';
 import { ButtonComponent } from '../button/button.component';
 
 @Component({
@@ -46,8 +47,11 @@ import { ButtonComponent } from '../button/button.component';
 })
 export class SidebarComponent {  
   @Input() showSidebar!: boolean;
+  @Input() dashboards!: Dashboard[];
+  @Input() currentDashboard!: Dashboard | null;
   @Output() closeSidebar = new EventEmitter<void>();
   @Output() openDashboardModal = new EventEmitter<void>();
+  @Output() changeCurrentDashboard = new EventEmitter<Dashboard>();
   
   ButtonColor = ButtonColor;
 

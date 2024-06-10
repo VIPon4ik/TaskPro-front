@@ -1,10 +1,10 @@
-<form [formGroup]="dashboardForm">
+<form [formGroup]="dashboardForm" (ngSubmit)="onSave()">
   <h2 class="mb-6">New board</h2>
 
   <div class="mb-6">
     <tp-input
       placeholder="Title"
-      [control]="dashboardForm.controls['title'] | getFormControl"
+      [control]="dashboardForm.controls['name'] | getFormControl"
     ></tp-input>
   </div>
 
@@ -49,7 +49,7 @@
           />
           <label class="cursor-pointer" [for]="bg">
             <img
-              [src]="'./assets/dashboard-bg-icons/' + bg + '.svg'"
+              [src]="'./assets/dashboard-bg-icons/' + bg + '.png'"
               [alt]="bg"
             />
           </label>
@@ -58,7 +58,11 @@
     </ul>
   </div>
 
-  <tp-button [color]="ButtonColor.Secondary">
+  <tp-button
+    [color]="ButtonColor.Secondary"
+    [disabled]="!dashboardForm.valid"
+    [type]="ButtonType.Submit"
+  >
     <div class="flex items-center justify-center gap-2">
       <span class="rounded-md bg-white p-1">
         <img src="./assets/plus.svg" />

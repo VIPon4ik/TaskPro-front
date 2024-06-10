@@ -5,8 +5,14 @@ import { UsersService } from '@shared/auth/services/users.service';
 import { ModalService } from '@shared/modal/services/modal.service';
 import { HeaderComponent } from '@shared/ui/components/header/header.component';
 import { SidebarComponent } from '@shared/ui/components/sidebar/sidebar.component';
+import { Dashboard } from '@shared/dashboards/models';
+import { DashboardsService } from '@shared/dashboards/services/dashboards.service';
+import { switchMap, tap } from 'rxjs';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { FormGroup } from '@angular/forms';
 import { CreateBoardModalComponent } from './components';
 
+@UntilDestroy()
 @Component({
   selector: 'tp-home-page',
   standalone: true,
@@ -16,15 +22,42 @@ import { CreateBoardModalComponent } from './components';
 export class HomePageComponent implements OnInit {
   private usersService = inject(UsersService);
   private modalService = inject(ModalService);
+  private dashboardService = inject(DashboardsService);
   
   currentUser = this.usersService.user$;
   showSidebar = false;
+  dashboards!: Dashboard[];
+  currentDashboard: Dashboard | null = null;
 
   ngOnInit(): void {
     this.showSidebar = window.innerWidth >= 1440;
+    this.dashboardService.getDashboards$()
+      .pipe(
+        tap((dashboards: Dashboard[]) => {
+          this.dashboards = dashboards;
+          this.currentDashboard = dashboards[0];
+        }),
+        untilDestroyed(this),
+      )
+      .subscribe();
   }
 
   openDashboardModal(): void {
-    this.modalService.open(CreateBoardModalComponent);
+    const modalRef = this.modalService.open(CreateBoardModalComponent);
+
+    modalRef.instance.createDashboard
+      .pipe(
+        switchMap((form: FormGroup) => this.dashboardService.addDashboard$(form.value)),
+        tap((dashboard: Dashboard) => {
+          this.dashboards.push(dashboard);
+          this.currentDashboard = dashboard;
+        }),
+        untilDestroyed(this),
+      )
+      .subscribe();
+  }
+
+  onChangeCurrentDashboard(dashboard: Dashboard): void {
+    this.currentDashboard = dashboard;
   }
 }

@@ -7,8 +7,11 @@
 
 <tp-sidebar
   [showSidebar]="showSidebar"
+  [dashboards]="dashboards"
+  [currentDashboard]="currentDashboard"
   (closeSidebar)="showSidebar = !showSidebar"
   (openDashboardModal)="openDashboardModal()"
+  (changeCurrentDashboard)="onChangeCurrentDashboard($event)"
 ></tp-sidebar>
 <main class="relative h-screen pt-16">
   <p
