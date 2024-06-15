@@ -3,7 +3,8 @@
   [ngClass]="{
     'bg-primary-black hover:bg-secondary-black': color === ButtonColor.Primary,
     'bg-green text-black': color === ButtonColor.Secondary,
-    'bg-transparent text-primary-black': color === ButtonColor.Transparent
+    'bg-transparent text-primary-black': color === ButtonColor.Transparent,
+    'bg-danger hover:bg-danger-drk': color === ButtonColor.Danger,
   }"
   [class.hover:bg-green-drk]="color === ButtonColor.Secondary || color === ButtonColor.Transparent"
   [type]="type"

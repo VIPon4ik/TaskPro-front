@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { UsersService } from '@shared/auth/services/users.service';
 import { ModalService } from '@shared/modal/services/modal.service';
 import { HeaderComponent } from '@shared/ui/components/header/header.component';
 import { SidebarComponent } from '@shared/ui/components/sidebar/sidebar.component';
 import { Dashboard } from '@shared/dashboards/models';
 import { DashboardsService } from '@shared/dashboards/services/dashboards.service';
+import { ConfirmationModalComponent } from '@shared/modal/components/confirmation-modal/confirmation-modal.component';
 import { switchMap, tap } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { FormGroup } from '@angular/forms';
 import { CreateBoardModalComponent } from './components';
 
 @UntilDestroy()
@@ -23,7 +24,7 @@ export class HomePageComponent implements OnInit {
   private usersService = inject(UsersService);
   private modalService = inject(ModalService);
   private dashboardService = inject(DashboardsService);
-  
+
   currentUser = this.usersService.user$;
   showSidebar = false;
   dashboards!: Dashboard[];
@@ -47,7 +48,9 @@ export class HomePageComponent implements OnInit {
 
     modalRef.instance.createDashboard
       .pipe(
-        switchMap((form: FormGroup) => this.dashboardService.addDashboard$(form.value)),
+        switchMap((form: FormGroup) =>
+          this.dashboardService.addDashboard$(form.value),
+        ),
         tap((dashboard: Dashboard) => {
           this.dashboards.push(dashboard);
           this.currentDashboard = dashboard;
@@ -60,5 +63,21 @@ export class HomePageComponent implements OnInit {
 
   onChangeCurrentDashboard(dashboard: Dashboard): void {
     this.currentDashboard = dashboard;
+  }
+
+  onDeleteDashboard(dashboard: Dashboard): void {
+    const modalRef = this.modalService.open(ConfirmationModalComponent, {
+      header: 'Delete dashboard',
+      content: `Are you sure you want to delete <span class="text-danger text-sm">&#x00AB ${dashboard.name} &#x00BB</span> dashboard?`,
+    });
+
+    modalRef.instance.acceptModal
+      .pipe(
+        tap(() => {
+
+        }),
+        untilDestroyed(this),
+      )
+      .subscribe();
   }
 }

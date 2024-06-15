@@ -1,0 +1,6 @@
+<h2 class="mb-4 text-center uppercase text-danger">{{ options.header }}</h2>
+<p class="mb-5 text-center" [innerHTML]="options.content"></p>
+<div class="flex gap-4 justify-center">
+  <tp-button class="w-full" [color]="ButtonColor.Danger" (btnClick)="acceptModal.emit()">Yes</tp-button>
+  <tp-button class="w-full" (btnClick)="closeModal.emit()">Cancel</tp-button>
+</div>

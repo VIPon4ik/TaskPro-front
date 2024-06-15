@@ -19,6 +19,8 @@ module.exports = {
         'accent-black': '#1F1F1F',
         'green': '#BEDBB0',
         'green-drk':'#a1c291',
+        'danger': '#FF8769',
+        'danger-drk': '#D75F41',
         'disabled': '#404040',
         'disabled-drk': '#363636'
       },
