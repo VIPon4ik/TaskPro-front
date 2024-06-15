@@ -73,8 +73,11 @@ export class HomePageComponent implements OnInit {
 
     modalRef.instance.acceptModal
       .pipe(
+        switchMap(() => this.dashboardService.deleteDashboard$(dashboard)),
         tap(() => {
-
+          this.dashboards = this.dashboards.filter(item => item.id !== dashboard.id);
+          this.currentDashboard = this.currentDashboard?.id === dashboard.id ? (this.dashboards.length ? this.dashboards[0] : null) : this.currentDashboard;
+          modalRef.instance.closeModal.emit();
         }),
         untilDestroyed(this),
       )
