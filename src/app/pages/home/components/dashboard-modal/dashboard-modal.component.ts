@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { trimValidator } from '@shared/auth/validators/trim-validator';
-import { DashboardBackgrounds, DashboardIcons } from '@shared/dashboards/models';
+import { Dashboard, DashboardBackgrounds, DashboardIcons } from '@shared/dashboards/models';
 import { ButtonComponent } from '@shared/ui/components/button/button.component';
 import { InputComponent } from '@shared/ui/components/input/input.component';
 import { ButtonColor, ButtonType } from '@shared/ui/models';
@@ -23,8 +23,10 @@ import { tap } from 'rxjs';
   templateUrl: './dashboard-modal.component.html',
 })
 export class DashboardModalComponent implements OnInit {
+  @Input() dashboard!: Dashboard;
   @Output() closeModal = new EventEmitter<void>();
-  @Output() createDashboard = new EventEmitter<FormGroup>();
+  @Output() createDashboard = new EventEmitter<Dashboard>();
+  @Output() editDashboard = new EventEmitter<Dashboard>();
 
   dashboardForm!: FormGroup;
   ButtonColor = ButtonColor;
@@ -45,13 +47,14 @@ export class DashboardModalComponent implements OnInit {
   ngOnInit(): void {
     this.setupForm();
     this.handleValueChanges();
+    this.cdr.detectChanges();
   }
 
   setupForm(): void {
     this.dashboardForm = this.formBuilder.group({
-      name: ['', [trimValidator(2, 72)]],
-      icon: [DashboardIcons.Project],
-      background: [DashboardBackgrounds.NoBg],
+      name: [this.dashboard?.name ?? '', [trimValidator(2, 72)]],
+      icon: [this.dashboard?.icon ?? DashboardIcons.Project],
+      background: [this.dashboard?.background ?? DashboardBackgrounds.NoBg],
     });
   }
 
@@ -65,6 +68,6 @@ export class DashboardModalComponent implements OnInit {
   }
 
   onSave(): void {
-    this.createDashboard.emit(this.dashboardForm);
+    this.dashboard ? this.editDashboard.emit(this.dashboardForm.value) : this.createDashboard.emit(this.dashboardForm.value);
   }
 }

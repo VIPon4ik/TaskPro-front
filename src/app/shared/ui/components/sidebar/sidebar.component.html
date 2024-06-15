@@ -40,8 +40,10 @@
         </div>
         <div class="flex gap-2">
           <button
+            tp-stop-propaganation
             type="button"
             class="opacity-50 transition-opacity hover:opacity-100"
+            (click)="editDashboard.emit(dashboard)"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -1,5 +1,5 @@
 <form [formGroup]="dashboardForm" (ngSubmit)="onSave()">
-  <h2 class="mb-6">New board</h2>
+  <h2 class="mb-6">{{ dashboard ? 'Edit' : 'New' }} board</h2>
 
   <div class="mb-6">
     <tp-input
@@ -71,7 +71,7 @@
       <span class="rounded-md bg-white p-1">
         <img src="./assets/plus.svg" />
       </span>
-      <span> Create </span>
+      <span> {{ dashboard ? 'Edit' : 'Create' }} </span>
     </div>
   </tp-button>
 </form>

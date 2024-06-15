@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { UsersService } from '@shared/auth/services/users.service';
 import { ModalService } from '@shared/modal/services/modal.service';
 import { HeaderComponent } from '@shared/ui/components/header/header.component';
@@ -44,18 +43,32 @@ export class HomePageComponent implements OnInit {
       .subscribe();
   }
 
-  openDashboardModal(): void {
+  openDashboardModal(dashboard?: Dashboard): void {
     const modalRef = this.modalService.open(DashboardModalComponent);
+
+    if (dashboard) {
+      modalRef.instance.dashboard = dashboard;
+      modalRef.instance.ngOnInit();
+    }
 
     modalRef.instance.createDashboard
       .pipe(
-        switchMap((form: FormGroup) =>
+        switchMap((dashboardToAdd: Dashboard) => this.dashboardService.addDashboard$(dashboardToAdd)),
+        tap((addedDashboard: Dashboard) => {
+          this.dashboards.push(addedDashboard);
+          this.currentDashboard = addedDashboard;
+          modalRef.instance.closeModal.emit();
+        }),
+        untilDestroyed(this),
+      )
+      .subscribe();
 
-          this.dashboardService.addDashboard$(form.value),
-        ),
-        tap((dashboard: Dashboard) => {
-          this.dashboards.push(dashboard);
-          this.currentDashboard = dashboard;
+    modalRef.instance.editDashboard
+      .pipe(
+        switchMap((dashboardToEdit: Dashboard) => this.dashboardService.updateDashboard$({ ...dashboard, ...dashboardToEdit })),
+        tap((editedDashboard) => {
+          const dashboardIndex = this.dashboards.findIndex(item => item.id === editedDashboard.id);
+          this.dashboards[dashboardIndex] = editedDashboard;
           modalRef.instance.closeModal.emit();
         }),
         untilDestroyed(this),

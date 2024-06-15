@@ -54,6 +54,7 @@ export class SidebarComponent {
   @Output() openDashboardModal = new EventEmitter<void>();
   @Output() changeCurrentDashboard = new EventEmitter<Dashboard>();
   @Output() deleteDashboard = new EventEmitter<Dashboard>();
+  @Output() editDashboard = new EventEmitter<Dashboard>();
   
   ButtonColor = ButtonColor;
 
