@@ -11,13 +11,14 @@ import { DashboardsService } from '@shared/dashboards/services/dashboards.servic
 import { ConfirmationModalComponent } from '@shared/modal/components/confirmation-modal/confirmation-modal.component';
 import { switchMap, tap } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { CreateBoardModalComponent } from './components';
+import { ButtonComponent } from '@shared/ui/components/button/button.component';
+import { DashboardModalComponent } from './components';
 
 @UntilDestroy()
 @Component({
   selector: 'tp-home-page',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, SidebarComponent],
+  imports: [CommonModule, HeaderComponent, SidebarComponent, ButtonComponent],
   templateUrl: './home-page.component.html',
 })
 export class HomePageComponent implements OnInit {
@@ -44,11 +45,12 @@ export class HomePageComponent implements OnInit {
   }
 
   openDashboardModal(): void {
-    const modalRef = this.modalService.open(CreateBoardModalComponent);
+    const modalRef = this.modalService.open(DashboardModalComponent);
 
     modalRef.instance.createDashboard
       .pipe(
         switchMap((form: FormGroup) =>
+
           this.dashboardService.addDashboard$(form.value),
         ),
         tap((dashboard: Dashboard) => {
@@ -82,5 +84,9 @@ export class HomePageComponent implements OnInit {
         untilDestroyed(this),
       )
       .subscribe();
+  }
+
+  openColumnModal(): void {
+    // const modalRef = this.modalService.open();
   }
 }

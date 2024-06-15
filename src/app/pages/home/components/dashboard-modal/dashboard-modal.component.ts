@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { trimValidator } from '@shared/auth/validators/trim-validator';
 import { DashboardBackgrounds, DashboardIcons } from '@shared/dashboards/models';
 import { ButtonComponent } from '@shared/ui/components/button/button.component';
 import { InputComponent } from '@shared/ui/components/input/input.component';
@@ -10,7 +11,7 @@ import { tap } from 'rxjs';
 
 @UntilDestroy()
 @Component({
-  selector: 'tp-create-board-modal',
+  selector: 'tp-dashboard-modal',
   standalone: true,
   imports: [
     InputComponent,
@@ -19,9 +20,9 @@ import { tap } from 'rxjs';
     ReactiveFormsModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './create-board-modal.component.html',
+  templateUrl: './dashboard-modal.component.html',
 })
-export class CreateBoardModalComponent implements OnInit {
+export class DashboardModalComponent implements OnInit {
   @Output() closeModal = new EventEmitter<void>();
   @Output() createDashboard = new EventEmitter<FormGroup>();
 
@@ -48,7 +49,7 @@ export class CreateBoardModalComponent implements OnInit {
 
   setupForm(): void {
     this.dashboardForm = this.formBuilder.group({
-      name: [''],
+      name: ['', [trimValidator(2, 72)]],
       icon: [DashboardIcons.Project],
       background: [DashboardBackgrounds.NoBg],
     });

@@ -3,8 +3,33 @@ export interface Dashboard {
   name: string;
   icon: DashboardIcons;
   background: DashboardBackgrounds;
+  columns: DashboardColumn[];
   createdAt: string;
   updatedAt: string;
+}
+
+export interface DashboardColumn {
+  id: number;
+  cards: DashboardColumnCard[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface DashboardColumnCard {
+  id: number;
+  name: string;
+  description: string;
+  priority: DashboardColumnCardPriority;
+  deadline: Date;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export enum DashboardColumnCardPriority {
+  Without = 'without',
+  Low = 'low',
+  Medium = 'medium',
+  High = 'high',
 }
 
 export enum DashboardIcons {

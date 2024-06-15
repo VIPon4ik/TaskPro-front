@@ -1,1 +1,1 @@
-export * from './create-board-modal/create-board-modal.component';
+export * from './dashboard-modal/dashboard-modal.component';
