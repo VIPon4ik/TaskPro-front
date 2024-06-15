@@ -6,11 +6,12 @@ import { Router } from '@angular/router';
 import { UsersService } from '@shared/auth/services/users.service';
 import { Dashboard } from '@shared/dashboards/models';
 import { ButtonComponent } from '../button/button.component';
+import { StopPropaganationDirective } from '@shared/directives';
 
 @Component({
   selector: 'tp-sidebar',
   standalone: true,
-  imports: [ButtonComponent, CommonModule],
+  imports: [ButtonComponent, CommonModule, StopPropaganationDirective],
   templateUrl: './sidebar.component.html',
   animations: [
     trigger('slide', [
@@ -52,6 +53,7 @@ export class SidebarComponent {
   @Output() closeSidebar = new EventEmitter<void>();
   @Output() openDashboardModal = new EventEmitter<void>();
   @Output() changeCurrentDashboard = new EventEmitter<Dashboard>();
+  @Output() deleteDashboard = new EventEmitter<number>()
   
   ButtonColor = ButtonColor;
 

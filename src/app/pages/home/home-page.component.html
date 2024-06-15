@@ -12,6 +12,7 @@
   (closeSidebar)="showSidebar = !showSidebar"
   (openDashboardModal)="openDashboardModal()"
   (changeCurrentDashboard)="onChangeCurrentDashboard($event)"
+  (deleteDashboard)="onDeleteDashboard($event)"
 ></tp-sidebar>
 <main class="relative min-h-screen pt-16">
   @if (!currentDashboard) {
