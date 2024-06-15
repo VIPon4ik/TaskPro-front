@@ -1,7 +1,13 @@
 <div class="relative focus-within:[&>button]:opacity-100">
   <input
-    class="outline-green w-full rounded-lg border border-solid bg-accent-black px-[18px] py-[14px] text-base text-white opacity-40 focus:opacity-100"
-    [type]="type === InputType.Password ? (hidePassword ? type : InputType.Text) : type"
+    class="w-full rounded-lg border border-solid bg-accent-black px-[18px] py-[14px] text-sm text-white opacity-40 outline-green focus:opacity-100"
+    [type]="
+      type === InputType.Password
+        ? hidePassword
+          ? type
+          : InputType.Text
+        : type
+    "
     [placeholder]="placeholder"
     [formControl]="control"
     [class.border-danger]="control.errors && control.dirty"
@@ -15,7 +21,7 @@
   >
     <img src="./assets/eye.svg" />
   </button>
-  @if (control.dirty ) {
+  @if (control.dirty) {
     @for (error of control.errors | keyvalue; track error.key) {
       <span class="text-xs text-danger">{{ error.value }}</span>
     }

@@ -13,16 +13,21 @@
   (openDashboardModal)="openDashboardModal()"
   (changeCurrentDashboard)="onChangeCurrentDashboard($event)"
 ></tp-sidebar>
-<main class="relative h-screen pt-16">
-  <p
-    class="absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 text-center text-xs text-white text-opacity-50 md:max-w-[486px] md:text-sm"
-  >
-    Before starting your project, it is essential
-    <span class="cursor-pointer text-green" (click)="openDashboardModal()">
-      to create a board
-    </span>
-    to visualize and track all the necessary tasks and milestones. This board
-    serves as a powerful tool to organize the workflow and ensure effective
-    collaboration among team members.
-  </p>
+<main class="relative min-h-screen pt-16">
+  @if (!currentDashboard) {
+    <p
+      class="absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 text-center text-xs text-white text-opacity-50 md:max-w-[486px] md:text-sm"
+    >
+      Before starting your project, it is essential
+      <span class="cursor-pointer text-green" (click)="openDashboardModal()">
+        to create a board
+      </span>
+      to visualize and track all the necessary tasks and milestones. This board
+      serves as a powerful tool to organize the workflow and ensure effective
+      collaboration among team members.
+    </p>
+  }
+  @if (currentDashboard) {
+    <h3 class="mb-10 mt-4">{{ currentDashboard.name }}</h3>
+  }
 </main>

@@ -37,7 +37,10 @@ module.exports = {
       },
       fill: {
         'black': '#1F1F1F',
-      }
+      },
+      boxShadow: {
+        'white': '1.5px 1.5px 3px rgba(155, 155, 155, 0.6)',
+      },
     },
   },
   plugins: [],

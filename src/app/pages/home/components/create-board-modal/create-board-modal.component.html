@@ -37,9 +37,12 @@
 
   <div class="mb-10">
     <h3 class="mb-4">Background</h3>
-    <ul class="flex flex-wrap gap-2">
+    <ul class="flex max-w-60 flex-wrap gap-2 mobile:max-w-full">
       @for (bg of backgrounds; track $index) {
-        <li>
+        <li
+          class="rounded-lg transition-shadow"
+          [class.shadow-white]="dashboardForm.value.background === bg"
+        >
           <input
             class="hidden"
             type="radio"
@@ -49,6 +52,7 @@
           />
           <label class="cursor-pointer" [for]="bg">
             <img
+              class="h-5 w-5 mobile:h-7 mobile:w-7"
               [src]="'./assets/dashboard-bg-icons/' + bg + '.png'"
               [alt]="bg"
             />

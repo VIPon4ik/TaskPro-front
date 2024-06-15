@@ -51,6 +51,7 @@ export class HomePageComponent implements OnInit {
         tap((dashboard: Dashboard) => {
           this.dashboards.push(dashboard);
           this.currentDashboard = dashboard;
+          modalRef.instance.closeModal.emit();
         }),
         untilDestroyed(this),
       )
